@@ -1,6 +1,9 @@
 import mapboxgl from 'mapbox-gl';
 import { useEffect, useRef, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
+// import Mapbox Geocoder API
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 // based on https://medium.com/@gisjohnecs/part-1-web-mapping-with-mapbox-gl-react-js-7d11b50d86ec
 
@@ -20,6 +23,14 @@ function Map({ geoData }) {
       center: [lng, lat],
       zoom: zoom,
     });
+    // Add the control to the map
+    map.current.addControl(
+      new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+      }),
+      'top-left'
+    );
 
     // Add our navigation control (the +/- zoom buttons)
     map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');

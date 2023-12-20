@@ -61,8 +61,8 @@ https://leafletjs.com/
 
 The url to your repository and to your deployed project
 
-Frontend: [Repository Link]()
-Backend: [Repository Link]()
+Frontend: [Repository Link](https://github.com/Blitu82/TrekTrackr)
+Backend: [Repository Link](https://github.com/Blitu82/json-server-backend)
 
 [Deploy Link]()
 
