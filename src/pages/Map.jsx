@@ -5,8 +5,6 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 // based on https://medium.com/@gisjohnecs/part-1-web-mapping-with-mapbox-gl-react-js-7d11b50d86ec
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_KEY;
-console.log(import.meta.env.VITE_MAPBOX_KEY);
-// 'pk.eyJ1IjoiYmxpdHU4MiIsImEiOiJjbHE5aDcyMXAxNGtiMmtzOXZqZmI3ZG5kIn0.Fi97M9U2FQcCucsJZEaKWQ';
 
 function Map({ geoData }) {
   const mapContainer = useRef(null);
