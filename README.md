@@ -1,8 +1,73 @@
-# React + Vite
+# Project Name
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+TREKTRACKR (Trip Location Planner)
 
-Currently, two official plugins are available:
+<br>
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Description
+
+Location planner App that allows users to manage itineraries when visiting new cities.
+<br>
+
+## Data
+
+Itinerary
+
+```json
+{
+  "location_name": String,
+  "latitude": Number,
+  "longitude": Number,
+  "address": String,
+  "description": String,
+  "activities": Array,
+}
+
+```
+
+Activities
+
+```json
+{
+  "activityId": Number,
+  "activity_name": String,
+}
+
+```
+
+<br>
+
+## API's
+
+https://docs.mapbox.com/
+
+https://docs.mapbox.com/api/navigation/directions/
+
+https://developers.google.com/maps/
+
+https://developer.here.com/
+
+<br>
+
+## Packages
+
+https://leafletjs.com/
+
+<br>
+
+## Links
+
+### Git
+
+The url to your repository and to your deployed project
+
+Frontend: [Repository Link]()
+Backend: [Repository Link]()
+
+[Deploy Link]()
+
+### Contributors
+
+Estanislau Mendes - [`<github-username>`](https://github.com/estanislaumendes) - [`<linkedin-profile-link>`](https://www.linkedin.com/in/estanislau-mendes)
+
+Pablo Garcia Garcia - [`<github-username>`](https://github.com/Blitu82) - [`<linkedin-profile-link>`](https://www.linkedin.com/in/garpablo/)
