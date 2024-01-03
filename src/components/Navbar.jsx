@@ -1,18 +1,20 @@
 import { Link } from 'react-router-dom';
+import { Box, Heading } from '@chakra-ui/react';
+
+import { Image, Stack } from '@chakra-ui/react';
 
 function Navbar() {
   return (
-    <nav className="navbar">
-      <h1 className="navbar-logo">TrekTrackr</h1>
-      <div className="navbar-links">
-        <Link to="/" className="navbar-link">
-          Home
-        </Link>
-        <Link to="/itineraries" className="navbar-link">
-          Itineraries
-        </Link>
-      </div>
-    </nav>
+    <Stack direction="row" as="nav" bg="#222" p="15px">
+      <Image
+        boxSize="40px"
+        src="src\assets\logo_example.png"
+        alt="logo"
+      ></Image>
+      <Heading as="h1" color="white">
+        TrekTrackr
+      </Heading>
+    </Stack>
   );
 }
 

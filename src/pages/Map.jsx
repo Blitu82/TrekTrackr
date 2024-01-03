@@ -1,20 +1,20 @@
-import mapboxgl from 'mapbox-gl';
 import { useEffect, useRef, useState } from 'react';
+import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-// import Mapbox Geocoder API
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
+import { Box } from '@chakra-ui/react';
 
 // based on https://medium.com/@gisjohnecs/part-1-web-mapping-with-mapbox-gl-react-js-7d11b50d86ec
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_KEY;
 
-function Map({ geoData }) {
+function Map({ geoJson }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(-9.1426);
   const [lat, setLat] = useState(38.7369);
-  const [zoom, setZoom] = useState(13);
+  const [zoom, setZoom] = useState(2);
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
@@ -43,7 +43,7 @@ function Map({ geoData }) {
       map.current.addSource('itineraries', {
         type: 'geojson',
         // Use a URL for the value for the `data` property.
-        data: geoData,
+        data: geoJson,
       });
 
       map.current.addLayer({
@@ -94,15 +94,11 @@ function Map({ geoData }) {
 
     // Clean up on unmount
     return () => map.current.remove();
-  }, [lat, lng, zoom]);
+  }, [lng, lat, zoom]);
 
   //[lng, lat, zoom]
 
-  return (
-    <div className="map">
-      <div ref={mapContainer} className="map-container" />
-    </div>
-  );
+  return <Box ref={mapContainer} w="1500px" style={{ overflow: 'auto' }}></Box>;
 }
 
 export default Map;

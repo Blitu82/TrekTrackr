@@ -1,20 +1,62 @@
-function Itineraries({ geoData }) {
+import { Box, Stack, Text, IconButton, Badge } from '@chakra-ui/react';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+
+function Itineraries({ geoJson, activity, onDelete, onEdit }) {
+  const getLocationActivities = locationId => {
+    // Filter activities for the current location
+    return activity.filter(act => act.itineraryId === locationId);
+  };
   return (
-    <div>
-      <h1>Itinerary Page</h1>
-      {geoData && (
-        <div>
-          <ul>
-            {geoData.features.map(location => (
-              <li key={location.properties.id}>
-                <strong>{location.properties.name}</strong>
-                <p>{location.properties.address}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
+    <Box w="500px" p="10px">
+      {geoJson && (
+        <Stack spacing="10px">
+          {geoJson.features.map(location => (
+            <Stack
+              key={location.properties.id}
+              direction="row"
+              bg="gray.100"
+              borderWidth="1px"
+              borderRadius="lg"
+              p="10px"
+              spacing="20px"
+              shadow="md"
+              alignItems="center"
+            >
+              <Box flex="1">
+                <Text as="strong" textAlign="left">
+                  {location.properties.name}
+                </Text>
+                <Stack direction="row" pt="5px">
+                  {getLocationActivities(location.properties.id).map(act => (
+                    <Badge variant="solid" colorScheme="green" key={act.id}>
+                      #{act.title}
+                    </Badge>
+                  ))}
+                </Stack>
+              </Box>
+              <Box flex="none">
+                <Stack direction="row" spacing="4">
+                  <IconButton
+                    aria-label="Edit Icon"
+                    colorScheme="yellow"
+                    icon={<EditIcon />}
+                    size="sm"
+                    onClick={() => onEdit(location.properties.id)}
+                  />
+                  <IconButton
+                    aria-label="Delete Icon"
+                    colorScheme="yellow"
+                    icon={<DeleteIcon />}
+                    size="sm"
+                    onClick={() => onDelete(location.properties.id)}
+                  />
+                </Stack>
+              </Box>
+            </Stack>
+          ))}
+        </Stack>
       )}
-    </div>
+    </Box>
   );
 }
 
