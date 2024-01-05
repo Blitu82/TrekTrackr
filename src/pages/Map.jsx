@@ -94,7 +94,7 @@ function Map({ geoJson }) {
 
     // Clean up on unmount
     return () => map.current.remove();
-  }, [lng, lat, zoom]);
+  }, [geoJson]);
 
   //[lng, lat, zoom]
 

@@ -1,11 +1,45 @@
-import { Box, Stack, Text, IconButton, Badge } from '@chakra-ui/react';
-import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { Box, Stack, Text, Flex, IconButton, Badge } from '@chakra-ui/react';
+import { DeleteIcon, EditIcon, CheckIcon, CloseIcon } from '@chakra-ui/icons';
+import {
+  Editable,
+  EditableInput,
+  EditableTextarea,
+  EditablePreview,
+  useEditableControls,
+  ButtonGroup,
+} from '@chakra-ui/react';
 
 function Itineraries({ geoJson, activity, onDelete, onEdit }) {
   const getLocationActivities = locationId => {
     // Filter activities for the current location
     return activity.filter(act => act.itineraryId === locationId);
   };
+
+  function EditableControls() {
+    const { isEditing, getSubmitButtonProps, getCancelButtonProps } =
+      useEditableControls();
+
+    return isEditing ? (
+      <Flex justifyContent="center">
+        <ButtonGroup size="sm">
+          <IconButton
+            aria-label="Check Icon"
+            icon={<CheckIcon />}
+            {...getSubmitButtonProps()}
+            // colorScheme="yellow"
+            // onClick={() => onEdit(location.properties.id)}
+          />
+          <IconButton
+            aria-label="Delete Icon"
+            icon={<DeleteIcon />}
+            // colorScheme="yellow"
+            {...getCancelButtonProps()}
+          />
+        </ButtonGroup>
+      </Flex>
+    ) : null;
+  }
+
   return (
     <Box w="500px" p="10px">
       {geoJson && (
@@ -29,7 +63,11 @@ function Itineraries({ geoJson, activity, onDelete, onEdit }) {
                 <Stack direction="row" pt="5px">
                   {getLocationActivities(location.properties.id).map(act => (
                     <Badge variant="solid" colorScheme="green" key={act.id}>
-                      #{act.title}
+                      <Editable defaultValue={`#${act.title}`}>
+                        <EditablePreview />
+                        <EditableInput />
+                        <EditableControls />
+                      </Editable>
                     </Badge>
                   ))}
                 </Stack>
@@ -38,8 +76,8 @@ function Itineraries({ geoJson, activity, onDelete, onEdit }) {
                 <Stack direction="row" spacing="4">
                   <IconButton
                     aria-label="Edit Icon"
-                    colorScheme="yellow"
                     icon={<EditIcon />}
+                    colorScheme="yellow"
                     size="sm"
                     onClick={() => onEdit(location.properties.id)}
                   />
