@@ -3,11 +3,12 @@ import { DeleteIcon, EditIcon, CheckIcon, CloseIcon } from '@chakra-ui/icons';
 import {
   Editable,
   EditableInput,
-  EditableTextarea,
   EditablePreview,
   useEditableControls,
   ButtonGroup,
 } from '@chakra-ui/react';
+
+import Overlay from '../components/Overlay';
 
 function Itineraries({ geoJson, activity, onDelete, onEdit }) {
   const getLocationActivities = locationId => {
@@ -15,30 +16,20 @@ function Itineraries({ geoJson, activity, onDelete, onEdit }) {
     return activity.filter(act => act.itineraryId === locationId);
   };
 
-  function EditableControls() {
-    const { isEditing, getSubmitButtonProps, getCancelButtonProps } =
-      useEditableControls();
-
-    return isEditing ? (
-      <Flex justifyContent="center">
-        <ButtonGroup size="sm">
-          <IconButton
-            aria-label="Check Icon"
-            icon={<CheckIcon />}
-            {...getSubmitButtonProps()}
-            // colorScheme="yellow"
-            // onClick={() => onEdit(location.properties.id)}
-          />
-          <IconButton
-            aria-label="Delete Icon"
-            icon={<DeleteIcon />}
-            // colorScheme="yellow"
-            {...getCancelButtonProps()}
-          />
-        </ButtonGroup>
-      </Flex>
-    ) : null;
+  function handleDelete(id) {
+    const updatedGeoJson = {
+      type: 'FeatureCollection',
+      features: geoJson.features.filter(
+        location => location.properties.id !== id
+      ),
+    };
+    setGeoJson(updatedGeoJson);
   }
+
+  // const handleEdit = id => {
+  //   // To be edited
+  //   console.log(`Edit item with ID: ${id}`);
+  // };
 
   return (
     <Box w="500px" p="10px">
@@ -63,23 +54,17 @@ function Itineraries({ geoJson, activity, onDelete, onEdit }) {
                 <Stack direction="row" pt="5px">
                   {getLocationActivities(location.properties.id).map(act => (
                     <Badge variant="solid" colorScheme="green" key={act.id}>
-                      <Editable defaultValue={`#${act.title}`}>
-                        <EditablePreview />
-                        <EditableInput />
-                        <EditableControls />
-                      </Editable>
+                      {`#${act.title}`}
                     </Badge>
                   ))}
                 </Stack>
               </Box>
               <Box flex="none">
                 <Stack direction="row" spacing="4">
-                  <IconButton
-                    aria-label="Edit Icon"
-                    icon={<EditIcon />}
-                    colorScheme="yellow"
-                    size="sm"
-                    onClick={() => onEdit(location.properties.id)}
+                  <Overlay
+                    location={location}
+                    activity={getLocationActivities(location.properties.id)}
+                    // onEdit={handleEdit}
                   />
                   <IconButton
                     aria-label="Delete Icon"

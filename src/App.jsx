@@ -39,7 +39,7 @@ function App() {
         features: features,
       };
 
-      console.log(featureCollection);
+      // console.log(featureCollection);
 
       // Set the created GeoJSON to state
       setGeoJson(featureCollection);

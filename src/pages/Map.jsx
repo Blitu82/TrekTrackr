@@ -14,7 +14,7 @@ function Map({ geoJson }) {
   const map = useRef(null);
   const [lng, setLng] = useState(-9.1426);
   const [lat, setLat] = useState(38.7369);
-  const [zoom, setZoom] = useState(2);
+  const [zoom, setZoom] = useState(11);
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
