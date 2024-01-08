@@ -64,6 +64,29 @@ function App() {
     }
   }
 
+  async function addActivity(locationId, selectedActivity) {
+    try {
+      const response = await fetch(`${API_URL}/activity`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          itineraryId: locationId,
+          title: selectedActivity,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add activity');
+      }
+
+      getActivity();
+    } catch (error) {
+      console.error('There was a problem adding the acitivity:', error);
+    }
+  }
+
   useEffect(() => {
     getGeoJson();
     getActivity();
@@ -93,6 +116,7 @@ function App() {
           activity={activity}
           onDelete={handleDelete}
           onEdit={handleEdit}
+          addActivity={addActivity}
         />
         <Map geoJson={geoJson} />
       </Flex>

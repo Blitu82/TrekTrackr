@@ -10,21 +10,21 @@ import {
 
 import Overlay from '../components/Overlay';
 
-function Itineraries({ geoJson, activity, onDelete, onEdit }) {
+function Itineraries({ geoJson, activity, onDelete, onEdit, addActivity }) {
   const getLocationActivities = locationId => {
     // Filter activities for the current location
     return activity.filter(act => act.itineraryId === locationId);
   };
 
-  function handleDelete(id) {
-    const updatedGeoJson = {
-      type: 'FeatureCollection',
-      features: geoJson.features.filter(
-        location => location.properties.id !== id
-      ),
-    };
-    setGeoJson(updatedGeoJson);
-  }
+  // function handleDelete(id) {
+  //   const updatedGeoJson = {
+  //     type: 'FeatureCollection',
+  //     features: geoJson.features.filter(
+  //       location => location.properties.id !== id
+  //     ),
+  //   };
+  //   setGeoJson(updatedGeoJson);
+  // }
 
   // const handleEdit = id => {
   //   // To be edited
@@ -64,7 +64,7 @@ function Itineraries({ geoJson, activity, onDelete, onEdit }) {
                   <Overlay
                     location={location}
                     activity={getLocationActivities(location.properties.id)}
-                    // onEdit={handleEdit}
+                    addActivity={addActivity}
                   />
                   <IconButton
                     aria-label="Delete Icon"

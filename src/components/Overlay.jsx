@@ -21,8 +21,10 @@ import {
   Button,
 } from '@chakra-ui/react';
 
+const API_URL = 'https://json-server-backend-trek.adaptable.app';
+
 // From https://chakra-ui.com/docs/components/modal/usage
-function Overlay({ location, activity }) {
+function Overlay({ location, activity, addActivity }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedActivity, setSelectedActivity] = useState('');
 
@@ -31,6 +33,30 @@ function Overlay({ location, activity }) {
     console.log('Location Id:', location.properties.id);
     console.log('Add Activity:', event.target.value);
   };
+
+  const handleAddActivity = () => {
+    addActivity(location.properties.id, selectedActivity);
+    onClose();
+  };
+
+  // const handleDeleteActivity = async activityId => {
+  //   try {
+  //     const response = await fetch(`${API_URL}/activity/${activityId}`, {
+  //       method: 'DELETE',
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error('Failed to delete activity');
+  //     }
+
+  //     const updatedActivities = activity.filter(act => act.id !== activityId);
+
+  //     // After deletion, re-fetch the updated activity data
+  //     addActivity(location.properties.id, selectedActivity, updatedActivities);
+  //   } catch (error) {
+  //     console.error('There was a problem deleting the activity:', error);
+  //   }
+  // };
 
   // From https://chakra-ui.com/docs/components/editable
 
@@ -81,6 +107,14 @@ function Overlay({ location, activity }) {
             {activity.map(act => (
               <Badge variant="solid" colorScheme="green" key={act.id} m="5px">
                 {`#${act.title}`}
+                <IconButton
+                  aria-label="Close Icon"
+                  icon={<DeleteIcon />}
+                  // colorScheme="yellow"
+                  size="sm"
+                  m="5px"
+                  // onClick={() => handleDeleteActivity(act.id)}
+                />
               </Badge>
             ))}
           </ModalBody>
@@ -89,7 +123,7 @@ function Overlay({ location, activity }) {
             <Button variant="ghost" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button colorScheme="blue" onClick={handleActivityChange}>
+            <Button colorScheme="blue" onClick={handleAddActivity}>
               Add
             </Button>
           </ModalFooter>
