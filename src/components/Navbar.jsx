@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
-import { Box, Heading } from '@chakra-ui/react';
-
+import { Heading } from '@chakra-ui/react';
 import { Image, Stack } from '@chakra-ui/react';
 
 function Navbar() {

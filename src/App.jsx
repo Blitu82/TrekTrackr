@@ -8,9 +8,13 @@ import Itineraries from './pages/Itineraries';
 const API_URL = 'https://json-server-backend-trek.adaptable.app';
 
 function App() {
+  // STATE VARIABLES:
+  // Define state variables to store Locations (in GeoJson format) and Activities
   const [geoJson, setGeoJson] = useState(null);
   const [activity, setActivity] = useState(null);
 
+  // ASYNC FUNCTIONS:
+  // Define async function to GET location data (GeoJson) from mock API
   async function getGeoJson() {
     try {
       const response = await fetch(`${API_URL}/itinerary`);
@@ -19,7 +23,7 @@ function App() {
       }
       const jsonData = await response.json();
 
-      // Transform data into GeoJSON
+      // transform data into GeoJSON format
       const features = jsonData.map(item => ({
         type: 'Feature',
         geometry: {
@@ -38,9 +42,7 @@ function App() {
         type: 'FeatureCollection',
         features: features,
       };
-
       // console.log(featureCollection);
-
       // Set the created GeoJSON to state
       setGeoJson(featureCollection);
     } catch (error) {
@@ -48,6 +50,7 @@ function App() {
     }
   }
 
+  // Define async function to GET activity data from mock API
   async function getActivity() {
     try {
       const response = await fetch(`${API_URL}/activity`);
@@ -56,7 +59,6 @@ function App() {
       }
       const activityData = await response.json();
       // console.log(activityData);
-
       // Set the activity data to state
       setActivity(activityData);
     } catch (error) {
@@ -64,7 +66,8 @@ function App() {
     }
   }
 
-  async function addActivity(locationId, selectedActivity) {
+  // Define async function to POST new activity data selected by the user to the mock API
+  async function postActivity(locationId, selectedActivity) {
     try {
       const response = await fetch(`${API_URL}/activity`, {
         method: 'POST',
@@ -76,22 +79,33 @@ function App() {
           title: selectedActivity,
         }),
       });
-
       if (!response.ok) {
         throw new Error('Failed to add activity');
       }
-
+      // After updating, get updated activity data from the mock API
       getActivity();
     } catch (error) {
       console.error('There was a problem adding the acitivity:', error);
     }
   }
 
-  useEffect(() => {
-    getGeoJson();
-    getActivity();
-  }, []);
-
+  // Define async function to DELETE activity data selected by the user from the mock API.
+  async function deleteActivity(activityId) {
+    try {
+      const response = await fetch(`${API_URL}/activity/${activityId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete activity');
+      }
+      // After deletion, get updated activity data from the mock API.
+      getActivity();
+      console.log('These are the updated activities: ', activity);
+    } catch (error) {
+      console.error('There was a problem adding the acitivity:', error);
+    }
+  }
+  // Define temporary function to DELETE (filter) location data from the mock API
   function handleDelete(id) {
     const updatedGeoJson = {
       type: 'FeatureCollection',
@@ -102,10 +116,12 @@ function App() {
     setGeoJson(updatedGeoJson);
   }
 
-  const handleEdit = id => {
-    // To be edited
-    console.log(`Edit item with ID: ${id}`);
-  };
+  // USE EFFECT
+  // We set this effect, so the mock API (l) will run only once, after the initial render
+  useEffect(() => {
+    getGeoJson();
+    getActivity();
+  }, []);
 
   return (
     <>
@@ -114,9 +130,9 @@ function App() {
         <Itineraries
           geoJson={geoJson}
           activity={activity}
-          onDelete={handleDelete}
-          onEdit={handleEdit}
-          addActivity={addActivity}
+          onDelete={handleDelete} // delete location. For the time being, this is only filtering the Json file
+          postActivity={postActivity}
+          deleteActivity={deleteActivity}
         />
         <Map geoJson={geoJson} />
       </Flex>
