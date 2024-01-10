@@ -15,6 +15,7 @@ function Map({ geoJson }) {
   const [lng, setLng] = useState(-9.1426);
   const [lat, setLat] = useState(38.7369);
   const [zoom, setZoom] = useState(11);
+  const [searched, setSearched] = useState({});
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
@@ -28,6 +29,10 @@ function Map({ geoJson }) {
       new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
+      }).on('result', function (result) {
+        // setSearched(result.data);
+        // console.log(searched);
+        console.log(result);
       }),
       'top-left'
     );
