@@ -134,7 +134,11 @@ function App() {
           postActivity={postActivity}
           deleteActivity={deleteActivity}
         />
-        <Map geoJson={geoJson} />
+        <Map
+          geoJson={geoJson}
+          getGeoJson={getGeoJson}
+          getActivity={getActivity}
+        />
       </Flex>
     </>
   );

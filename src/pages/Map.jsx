@@ -9,7 +9,7 @@ import { Box } from '@chakra-ui/react';
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_KEY;
 
-function Map({ geoJson }) {
+function Map({ geoJson, getGeoJson, getActivity }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const [lng, setLng] = useState(-9.1426);
@@ -32,7 +32,15 @@ function Map({ geoJson }) {
       }).on('result', function (result) {
         // setSearched(result.data);
         // console.log(searched);
-        console.log(result);
+        let search = result;
+        let searchJson = {
+          name: search.result.text_en,
+          address: search.result.properties.address,
+          latitude: search.result.geometry.coordinates[0],
+          longitude: search.result.geometry.coordinates[1],
+        };
+
+        setSearched(searchJson);
       }),
       'top-left'
     );
@@ -101,7 +109,54 @@ function Map({ geoJson }) {
     return () => map.current.remove();
   }, [geoJson]);
 
+  useEffect(() => {
+    if (Object.keys(searched).length > 0) {
+      const API_URL = 'https://json-server-backend-trek.adaptable.app';
+      async function postLocation(searched) {
+        try {
+          const response = await fetch(`${API_URL}/itinerary`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(searched),
+          });
+          if (!response.ok) {
+            throw new Error('Failed to add itinerary');
+          }
+          getGeoJson();
+          getActivity();
+        } catch (error) {
+          console.error('There was a problem adding the itinerary:', error);
+        }
+      }
+      postLocation(searched);
+    }
+  }, [searched]);
+
   //[lng, lat, zoom]
+  console.log(searched);
+  // useEffect(() => {
+  //   // API test
+  //   const API_URL = 'https://json-server-backend-trek.adaptable.app';
+  //   async function postLocation(searched) {
+  //     try {
+  //       const response = await fetch(`${API_URL}/itinerary`, {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify(searched),
+  //       });
+  //       if (!response.ok) {
+  //         throw new Error('Failed to add itinerary');
+  //       }
+  //     } catch (error) {
+  //       console.error('There was a problem adding the itinerary:', error);
+  //     }
+  //   }
+  //   postLocation(searched);
+  // }, []);
 
   return <Box ref={mapContainer} w="1500px" style={{ overflow: 'auto' }}></Box>;
 }
