@@ -1,20 +1,18 @@
-import { Box, Stack, Text, Flex, IconButton, Badge } from '@chakra-ui/react';
+import { Box, Stack, Text, IconButton, Badge } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import Overlay from '../components/Overlay';
 
 function Itineraries({
   geoJson,
   activity,
-  onDelete,
   postActivity,
   deleteActivity,
+  deleteLocation,
 }) {
   // Define function that returns the activities associated with each location
   const getLocationActivities = locationId => {
     return activity.filter(act => act.itineraryId === locationId);
   };
-
-  // console.log(geoJson);
 
   return (
     <Box w="500px" p="10px">
@@ -37,13 +35,7 @@ function Itineraries({
                   {location.properties.name}
                 </Text>
                 {activity && (
-                  <Stack
-                    // wrap="wrap"
-                    direction="row"
-                    pt="5px"
-                    maxW="300px"
-                    overflowX="auto"
-                  >
+                  <Stack direction="row" pt="5px" maxW="300px" overflowX="auto">
                     {getLocationActivities(location.properties.id).map(act => (
                       <Badge key={act.id} variant="solid" colorScheme="green">
                         {`#${act.title}`}
@@ -67,7 +59,7 @@ function Itineraries({
                     colorScheme="yellow"
                     icon={<DeleteIcon />}
                     size="sm"
-                    onClick={() => onDelete(location.properties.id)}
+                    onClick={() => deleteLocation(location.properties.id)}
                   />
                 </Stack>
               </Box>

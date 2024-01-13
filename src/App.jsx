@@ -9,12 +9,12 @@ const API_URL = 'https://json-server-backend-trek.adaptable.app';
 
 function App() {
   // STATE VARIABLES:
-  // Define state variables to store Locations (in GeoJson format) and Activities
+  // Define state variables to store Locations and Activities
   const [geoJson, setGeoJson] = useState(null);
   const [activity, setActivity] = useState(null);
 
   // ASYNC FUNCTIONS:
-  // Define async function to GET location data (GeoJson) from mock API
+  // 1. Define async function to GET location data from mock API
   async function getGeoJson() {
     try {
       const response = await fetch(`${API_URL}/itinerary`);
@@ -36,7 +36,6 @@ function App() {
           address: item.address,
         },
       }));
-
       // Create a GeoJSON FeatureCollection from the features
       const featureCollection = {
         type: 'FeatureCollection',
@@ -46,11 +45,11 @@ function App() {
       // Set the created GeoJSON to state
       setGeoJson(featureCollection);
     } catch (error) {
-      console.error('There was a problem fetching the data:', error);
+      console.error('There was a problem fetching the location data:', error);
     }
   }
 
-  // Define async function to GET activity data from mock API
+  // 2. Define async function to GET activity data from mock API
   async function getActivity() {
     try {
       const response = await fetch(`${API_URL}/activity`);
@@ -62,11 +61,11 @@ function App() {
       // Set the activity data to state
       setActivity(activityData);
     } catch (error) {
-      console.error('There was a problem fetching the data:', error);
+      console.error('There was a problem fetching the activity data:', error);
     }
   }
 
-  // Define async function to POST new activity data selected by the user to the mock API
+  // 3. Define async function to POST new activity data to the mock API
   async function postActivity(locationId, selectedActivity) {
     try {
       const response = await fetch(`${API_URL}/activity`, {
@@ -80,44 +79,62 @@ function App() {
         }),
       });
       if (!response.ok) {
-        throw new Error('Failed to add activity');
+        throw new Error('Network response was not ok');
       }
       // After updating, get updated activity data from the mock API
       getActivity();
     } catch (error) {
-      console.error('There was a problem adding the acitivity:', error);
+      console.error('There was a problem adding the activity:', error);
     }
   }
 
-  // Define async function to DELETE activity data selected by the user from the mock API.
+  // 4. Define async function to DELETE activity data from the mock API.
   async function deleteActivity(activityId) {
     try {
       const response = await fetch(`${API_URL}/activity/${activityId}`, {
         method: 'DELETE',
       });
       if (!response.ok) {
-        throw new Error('Failed to delete activity');
+        throw new Error('Network response was not ok');
       }
       // After deletion, get updated activity data from the mock API.
       getActivity();
-      console.log('These are the updated activities: ', activity);
+      // console.log('These are the updated activities: ', activity);
     } catch (error) {
-      console.error('There was a problem adding the acitivity:', error);
+      console.error('There was a problem deleting the activity:', error);
     }
   }
-  // Define temporary function to DELETE (filter) location data from the mock API
-  function handleDelete(id) {
-    const updatedGeoJson = {
-      type: 'FeatureCollection',
-      features: geoJson.features.filter(
-        location => location.properties.id !== id
-      ),
-    };
-    setGeoJson(updatedGeoJson);
+
+  // 5. Define async function to DELETE location data from the mock API.
+  async function deleteLocation(locationId) {
+    try {
+      const response = await fetch(`${API_URL}/itinerary/${locationId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      // After deletion, get updated location data from the mock API.
+      getGeoJson();
+      // console.log('These are the updated locations: ', geoJson);
+    } catch (error) {
+      console.error('There was a problem deleting the location:', error);
+    }
   }
 
+  // TO BE DELETED: Define temporary function to DELETE (filter) location data from the mock API
+  // function handleDelete(id) {
+  //   const updatedGeoJson = {
+  //     type: 'FeatureCollection',
+  //     features: geoJson.features.filter(
+  //       location => location.properties.id !== id
+  //     ),
+  //   };
+  //   setGeoJson(updatedGeoJson);
+  // }
+
   // USE EFFECT
-  // We set this effect, so the mock API (l) will run only once, after the initial render
+  // We set this effect, so the mock API will run only once, after the initial render.
   useEffect(() => {
     getGeoJson();
     getActivity();
@@ -130,9 +147,9 @@ function App() {
         <Itineraries
           geoJson={geoJson}
           activity={activity}
-          onDelete={handleDelete} // delete location. For the time being, this is only filtering the Json file
           postActivity={postActivity}
           deleteActivity={deleteActivity}
+          deleteLocation={deleteLocation}
         />
         <Map
           geoJson={geoJson}

@@ -5,7 +5,7 @@ import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { Box } from '@chakra-ui/react';
 
-// based on https://medium.com/@gisjohnecs/part-1-web-mapping-with-mapbox-gl-react-js-7d11b50d86ec
+// Based on https://medium.com/@gisjohnecs/part-1-web-mapping-with-mapbox-gl-react-js-7d11b50d86ec
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_KEY;
 
@@ -31,13 +31,14 @@ function Map({ geoJson, getGeoJson, getActivity }) {
         mapboxgl: mapboxgl,
       }).on('result', function (result) {
         // setSearched(result.data);
-        // console.log(searched);
+        console.log(result);
         let search = result;
+
         let searchJson = {
           name: search.result.text_en,
           address: search.result.properties.address,
-          latitude: search.result.geometry.coordinates[0],
-          longitude: search.result.geometry.coordinates[1],
+          latitude: search.result.geometry.coordinates[1],
+          longitude: search.result.geometry.coordinates[0],
         };
 
         setSearched(searchJson);
@@ -53,9 +54,11 @@ function Map({ geoJson, getGeoJson, getActivity }) {
       // Nifty code to force map to fit inside container when it loads
       map.current.resize();
 
+      // Add location data to the map
+
+      console.log('this is the data should display on the map:', geoJson); // troubleshooting why red points do not show
       map.current.addSource('itineraries', {
         type: 'geojson',
-        // Use a URL for the value for the `data` property.
         data: geoJson,
       });
 
@@ -84,7 +87,6 @@ function Map({ geoJson, getGeoJson, getActivity }) {
         // Copy coordinates array.
         const coordinates = e.features[0].geometry.coordinates.slice();
         const properties = e.features[0].properties;
-
         const popupHtml = `<strong>Name:</strong><p>${properties.name}</p><br><strong>Address:</strong>${properties.address}`;
 
         // Ensure that if the map is zoomed out such that multiple
@@ -134,31 +136,17 @@ function Map({ geoJson, getGeoJson, getActivity }) {
     }
   }, [searched]);
 
-  //[lng, lat, zoom]
-  console.log(searched);
-  // useEffect(() => {
-  //   // API test
-  //   const API_URL = 'https://json-server-backend-trek.adaptable.app';
-  //   async function postLocation(searched) {
-  //     try {
-  //       const response = await fetch(`${API_URL}/itinerary`, {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json',
-  //         },
-  //         body: JSON.stringify(searched),
-  //       });
-  //       if (!response.ok) {
-  //         throw new Error('Failed to add itinerary');
-  //       }
-  //     } catch (error) {
-  //       console.error('There was a problem adding the itinerary:', error);
-  //     }
-  //   }
-  //   postLocation(searched);
-  // }, []);
+  // console.log(search);
+  // console.log(searched);
 
-  return <Box ref={mapContainer} w="1500px" style={{ overflow: 'auto' }}></Box>;
+  return (
+    <Box
+      ref={mapContainer}
+      w="1500px"
+      h="1500px"
+      style={{ overflow: 'auto' }}
+    ></Box>
+  );
 }
 
 export default Map;
