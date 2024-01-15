@@ -87,6 +87,11 @@ function Overlay({
                 <option>museum visit</option>
                 <option>outdoor picnic</option>
                 <option>wine tasting</option>
+                <option>art gallery visit</option>
+                <option>yoga session</option>
+                <option>cycling tour</option>
+                <option>cooking class</option>
+                <option>gardening workshop</option>
               </Select>
             </FormControl>
             {locationActivities.map(act => (

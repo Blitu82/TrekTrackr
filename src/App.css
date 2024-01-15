@@ -40,3 +40,7 @@
 .navbar-link:hover {
   color: #ffcc00; /* Change color on hover */
 }
+
+.mapboxgl-ctrl-geocoder--input {
+  font-size: 300px;
+}
