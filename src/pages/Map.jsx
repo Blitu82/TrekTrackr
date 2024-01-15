@@ -18,10 +18,7 @@ function Map({ geoJson, getGeoJson, getActivity }) {
   const [lat, setLat] = useState(38.7369);
   const [zoom, setZoom] = useState(11);
   const [searched, setSearched] = useState({});
-  const [start, setStart] = useState([-9.1393, 38.7223]);
-  const [end, setEnd] = useState([-9.2159, 38.6916]);
-  console.log(start);
-  console.log(end);
+  const [coords, setCoords] = useState([]);
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
@@ -68,6 +65,12 @@ function Map({ geoJson, getGeoJson, getActivity }) {
         data: geoJson,
       });
 
+      // Add route data to the map
+      map.current.addSource('route', {
+        type: 'geojson',
+        data: route,
+      });
+
       // Add 3D buildings (from: https://docs.mapbox.com/mapbox-gl-js/example/3d-buildings/)
       map.current.addLayer({
         id: 'add-3d-buildings',
@@ -97,6 +100,22 @@ function Map({ geoJson, getGeoJson, getActivity }) {
             ['get', 'min_height'],
           ],
           'fill-extrusion-opacity': 0.6,
+        },
+      });
+
+      // Add route layer to the map.
+      map.current.addLayer({
+        id: 'route-layer',
+        type: 'line',
+        source: 'route',
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round',
+        },
+        paint: {
+          'line-color': 'blue',
+          'line-width': 4,
+          'line-opacity': 0.75,
         },
       });
 
@@ -190,27 +209,43 @@ function Map({ geoJson, getGeoJson, getActivity }) {
   // );
 
   // WORK IN PROGRESS From: https://www.youtube.com/watch?v=XsGWdXnpU8k
-  // const getRoute = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       `https://api.mapbox.com/directions/v5/mapbox/walking/-9.1393%2C38.7223%3B-9.2159%2C38.6916?alternatives=true&continue_straight=true&geometries=geojson&language=en&overview=full&steps=true&access_token=${mapboxgl.accessToken}`
-  //       // `https://api.mapbox.com/directions/v5/walking/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`
-  //     );
-  //     if (!response.ok) {
-  //       throw new Error('Network response was not ok');
-  //     }
-  //     const route = await response.json();
-  //     const coords = route.routes[0].geometry.coordinates;
-  //     setCoord;
-  //     console.log(route);
-  //   } catch (error) {
-  //     console.error('There was a problem fetching the route');
-  //   }
-  // };
+  // console.log(geoJson);
+  // const formatedRoute = geoJson.feature.map{
+  //   return(location => location.geometry.coordinates[0]);
+  // }
+  // console.log(formattedRoute);
+  const getRoute = async () => {
+    try {
+      const response = await fetch(
+        `https://api.mapbox.com/directions/v5/mapbox/walking/-9.1393,38.7223;-9.2159,38.6916;-9.2064,38.6979;-9.1397,38.7123;-9.1393,38.7157?alternatives=false&geometries=geojson&language=en&overview=full&steps=true&access_token=${mapboxgl.accessToken}`
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const route = await response.json();
+      const coords = route.routes[0].geometry.coordinates;
+      setCoords(coords);
+      console.log([coords]);
+    } catch (error) {
+      console.error('There was a problem fetching the route');
+    }
+  };
+  const route = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: [...coords],
+        },
+      },
+    ],
+  };
 
-  // useEffect(() => {
-  //   getRoute();
-  // }, []);
+  useEffect(() => {
+    getRoute();
+  }, []);
 
   // console.log(search);
   // console.log(searched);
