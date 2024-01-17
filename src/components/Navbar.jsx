@@ -2,6 +2,7 @@ import { Flex, Heading, Switch } from '@chakra-ui/react';
 import { Image, Stack } from '@chakra-ui/react';
 import imgUrl from '../assets/logo_example.png';
 import { Button, useColorMode } from '@chakra-ui/react';
+import { NavLink } from 'react-router-dom';
 
 function Navbar() {
   const { toggleColorMode } = useColorMode();
@@ -23,7 +24,7 @@ function Navbar() {
 
       <Stack direction="row" align="center" spacing="20px">
         <Button colorScheme="yellow" size="lg">
-          About
+          <NavLink to="/about">About</NavLink>
         </Button>
         <Switch
           onChange={toggleColorMode}

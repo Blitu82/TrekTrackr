@@ -4,6 +4,10 @@ import { Flex } from '@chakra-ui/react';
 import Navbar from './components/Navbar';
 import Map from './pages/Map';
 import Itineraries from './pages/Itineraries';
+import { Routes, Route } from 'react-router-dom';
+import { fr } from '@mapbox/mapbox-gl-geocoder/lib/exceptions';
+import About from './pages/About';
+import ErrorPage from './pages/ErrorPage';
 
 const API_URL = 'https://json-server-backend-trek.adaptable.app';
 
@@ -143,20 +147,30 @@ function App() {
   return (
     <>
       <Navbar />
-      <Flex direction="row" height="100vh">
-        <Itineraries
-          geoJson={geoJson}
-          activity={activity}
-          postActivity={postActivity}
-          deleteActivity={deleteActivity}
-          deleteLocation={deleteLocation}
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Flex direction="row" height="100vh">
+              <Itineraries
+                geoJson={geoJson}
+                activity={activity}
+                postActivity={postActivity}
+                deleteActivity={deleteActivity}
+                deleteLocation={deleteLocation}
+              />
+              <Map
+                geoJson={geoJson}
+                getGeoJson={getGeoJson}
+                getActivity={getActivity}
+              />
+            </Flex>
+          }
         />
-        <Map
-          geoJson={geoJson}
-          getGeoJson={getGeoJson}
-          getActivity={getActivity}
-        />
-      </Flex>
+        <Route path="/about" element={<About />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
     </>
   );
 }
