@@ -11,7 +11,9 @@ function Itineraries({
 }) {
   // Define function that returns the activities associated with each location
   const getLocationActivities = locationId => {
-    return activity.filter(act => act.itineraryId === locationId);
+    return activity
+      ? activity.filter(act => act.itineraryId === locationId)
+      : [];
   };
 
   return (

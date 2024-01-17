@@ -2,8 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
-// import MapboxDirections from '@mapbox/mapbox-gl-directions';
-
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 import { Box } from '@chakra-ui/react';
 
@@ -19,6 +17,9 @@ function Map({ geoJson, getGeoJson, getActivity }) {
   const [zoom, setZoom] = useState(11);
   const [searched, setSearched] = useState({});
   const [coords, setCoords] = useState([]);
+  const [route, setRoute] = useState(null);
+  console.log(geoJson);
+  // const coordinatesArray = geoJson.features.map(feature => feature.geometry);
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
@@ -167,9 +168,9 @@ function Map({ geoJson, getGeoJson, getActivity }) {
 
     // Clean up on unmount
     return () => map.current.remove();
-  }, [geoJson]);
+  }, [geoJson, route]);
 
-  //
+  // Define async function to POST location data to mock API
   useEffect(() => {
     if (Object.keys(searched).length > 0) {
       const API_URL = 'https://json-server-backend-trek.adaptable.app';
@@ -209,46 +210,52 @@ function Map({ geoJson, getGeoJson, getActivity }) {
   // );
 
   // WORK IN PROGRESS From: https://www.youtube.com/watch?v=XsGWdXnpU8k
-  // console.log(geoJson);
-  // const formatedRoute = geoJson.feature.map{
-  //   return(location => location.geometry.coordinates[0]);
-  // }
-  // console.log(formattedRoute);
-  const getRoute = async () => {
-    try {
-      const response = await fetch(
-        `https://api.mapbox.com/directions/v5/mapbox/walking/-9.1393,38.7223;-9.2159,38.6916;-9.2064,38.6979;-9.1397,38.7123;-9.1393,38.7157?alternatives=false&geometries=geojson&language=en&overview=full&steps=true&access_token=${mapboxgl.accessToken}`
-      );
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const route = await response.json();
-      const coords = route.routes[0].geometry.coordinates;
-      setCoords(coords);
-      console.log([coords]);
-    } catch (error) {
-      console.error('There was a problem fetching the route');
-    }
-  };
-  const route = {
-    type: 'FeatureCollection',
-    features: [
-      {
-        type: 'feature',
-        geometry: {
-          type: 'LineString',
-          coordinates: [...coords],
-        },
-      },
-    ],
-  };
 
   useEffect(() => {
-    getRoute();
-  }, []);
+    const getRoute = async () => {
+      try {
+        if (!geoJson || !geoJson.features) {
+          console.error('No features found in geoJson');
+          return;
+        }
 
-  // console.log(search);
-  // console.log(searched);
+        const coordinates = geoJson.features.map(
+          feature => feature.geometry.coordinates
+        );
+
+        const waypoints = coordinates.map(coord => coord.join(',')).join(';');
+
+        const response = await fetch(
+          `https://api.mapbox.com/directions/v5/mapbox/walking/${waypoints}?alternatives=false&geometries=geojson&language=en&overview=full&steps=true&access_token=${mapboxgl.accessToken}`
+        );
+
+        if (!response.ok) {
+          throw new Error(`Error fetching route. Status: ${response.status}`);
+        }
+
+        const route = await response.json();
+        const coords = route.routes[0].geometry.coordinates;
+        setRoute({
+          type: 'FeatureCollection',
+          features: [
+            {
+              type: 'feature',
+              geometry: {
+                type: 'LineString',
+                coordinates: coords,
+              },
+            },
+          ],
+        });
+      } catch (error) {
+        console.error('There was a problem fetching the route', error);
+      }
+    };
+
+    if (geoJson && geoJson.features) {
+      getRoute();
+    }
+  }, [geoJson]);
 
   return (
     <Box
