@@ -3,11 +3,22 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { Box, useColorModeValue } from '@chakra-ui/react';
+import { useToast, Box, useColorModeValue } from '@chakra-ui/react';
 
 // Code based on https://medium.com/@gisjohnecs/part-1-web-mapping-with-mapbox-gl-react-js-7d11b50d86ec
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_KEY;
+
+// function ToastLocationAdded() {
+//   const toast = useToast();
+//   return toast({
+//     title: 'Location added.',
+//     description: "We've added the location for you.",
+//     status: 'success',
+//     duration: 9000,
+//     isClosable: true,
+//   });
+// }
 
 function Map({ geoJson, getGeoJson, getActivity }) {
   const mapContainer = useRef(null);
@@ -20,7 +31,7 @@ function Map({ geoJson, getGeoJson, getActivity }) {
   const [route, setRoute] = useState(null);
   // const [mapStyle, setMapStyle] = useState('')
 
-  // Define constant that will be used to toggle the Map style between light / dark mode
+  // Define constant that will be used to toggle the Map style between light / dark mode.
   const secondaryMapStyle = useColorModeValue('light', 'dark');
   let mapStyle = ' ';
   if (secondaryMapStyle === 'light') {
@@ -43,10 +54,11 @@ function Map({ geoJson, getGeoJson, getActivity }) {
         accessToken: mapboxgl.accessToken,
         mapboxgl: mapboxgl,
         types: 'poi',
-        placeholder: '         Search Location',
+        placeholder: '    Search Bar',
       }).on('result', function (result) {
         // setSearched(result.data);
         // console.log(result);
+
         let search = result;
 
         let searchJson = {
@@ -154,7 +166,7 @@ function Map({ geoJson, getGeoJson, getActivity }) {
         // Copy coordinates array.
         const coordinates = e.features[0].geometry.coordinates.slice();
         const properties = e.features[0].properties;
-        const popupHtml = `<strong>Name:</strong><p>${properties.name}</p><br><strong>Address:</strong>${properties.address}`;
+        const popupHtml = `<strong style="color: black;">Name:</strong><p style="color: black;">${properties.name}</p><br><strong style="color: black;">Address:</strong><p style="color: black;">${properties.address}</p>`;
 
         // Ensure that if the map is zoomed out such that multiple
         // copies of the feature are visible, the popup appears

@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import Map from './pages/Map';
 import Itineraries from './pages/Itineraries';
 import { Routes, Route } from 'react-router-dom';
-import { fr } from '@mapbox/mapbox-gl-geocoder/lib/exceptions';
+// import { fr } from '@mapbox/mapbox-gl-geocoder/lib/exceptions';
 import About from './pages/About';
 import ErrorPage from './pages/ErrorPage';
 
