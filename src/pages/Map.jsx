@@ -3,9 +3,9 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { Box } from '@chakra-ui/react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
 
-// Based on https://medium.com/@gisjohnecs/part-1-web-mapping-with-mapbox-gl-react-js-7d11b50d86ec
+// Code based on https://medium.com/@gisjohnecs/part-1-web-mapping-with-mapbox-gl-react-js-7d11b50d86ec
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_KEY;
 
@@ -18,13 +18,21 @@ function Map({ geoJson, getGeoJson, getActivity }) {
   const [searched, setSearched] = useState({});
   const [coords, setCoords] = useState([]);
   const [route, setRoute] = useState(null);
-  console.log(geoJson);
-  // const coordinatesArray = geoJson.features.map(feature => feature.geometry);
+  // const [mapStyle, setMapStyle] = useState('')
+
+  // Define constant that will be used to toggle the Map style between light / dark mode
+  const secondaryMapStyle = useColorModeValue('light', 'dark');
+  let mapStyle = ' ';
+  if (secondaryMapStyle === 'light') {
+    mapStyle = 'mapbox://styles/mapbox/streets-v12';
+  } else {
+    mapStyle = 'mapbox://styles/mapbox/dark-v11';
+  }
 
   useEffect(() => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
+      style: mapStyle,
       center: [lng, lat],
       zoom: zoom,
     });
@@ -168,7 +176,7 @@ function Map({ geoJson, getGeoJson, getActivity }) {
 
     // Clean up on unmount
     return () => map.current.remove();
-  }, [geoJson, route]);
+  }, [geoJson, route, mapStyle]);
 
   // Define async function to POST location data to mock API
   useEffect(() => {
