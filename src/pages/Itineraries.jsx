@@ -1,4 +1,11 @@
-import { Box, Stack, Text, IconButton, Badge } from '@chakra-ui/react';
+import {
+  Box,
+  Stack,
+  Text,
+  IconButton,
+  Badge,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import Overlay from '../components/Overlay';
 
@@ -9,6 +16,9 @@ function Itineraries({
   deleteActivity,
   deleteLocation,
 }) {
+  // Define constant that will be used to toggle between light/dark mode
+  const bgColor = useColorModeValue('gray.100', 'whiteAlpha.50');
+
   // Define function that returns the activities associated with each location
   const getLocationActivities = locationId => {
     return activity
@@ -24,7 +34,7 @@ function Itineraries({
             <Stack
               key={location.properties.id}
               direction="row"
-              bg="gray.100"
+              bg={bgColor}
               borderWidth="1px"
               borderRadius="lg"
               p="10px"
