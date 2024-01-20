@@ -46,12 +46,11 @@ function About() {
           <Stack w="200px">
             <Text color="black" fontSize="l" p="5px">
               &#123;
-              <br /> "location_name": <Text as="mark">String</Text>, "latitude":{' '}
+              <br /> "id": <Text as="mark">Number</Text>,<br /> "name":{' '}
+              <Text as="mark">String</Text>, <br />
+              "address": <Text as="mark">String</Text>, "latitude":{' '}
               <Text as="mark">Number</Text>, "longitude":
-              <Text as="mark">Number</Text>, <Text as="mark"></Text>"address":{' '}
-              <Text as="mark">String</Text>, "description":{' '}
-              <Text as="mark">String</Text>, "activities":
-              <Text as="mark">Array</Text>,
+              <Text as="mark">Number</Text>,
               <br /> &#125;
             </Text>
           </Stack>
