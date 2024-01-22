@@ -15,11 +15,15 @@ function Navbar() {
       bg="#222"
       p="15px"
     >
-      <Stack direction="row">
-        <Image boxSize="40px" src={imgUrl} alt="logo"></Image>
-        <Heading as="h1" color="white">
-          TrekTrackr
-        </Heading>
+      <Stack direction="row" pr="10px">
+        <NavLink to="/">
+          <Image boxSize="40px" src={imgUrl} alt="logo"></Image>
+        </NavLink>
+        <NavLink to="/">
+          <Heading as="h1" color="white">
+            TrekTrackr
+          </Heading>
+        </NavLink>
       </Stack>
 
       <Stack direction="row" align="center" spacing="20px">
