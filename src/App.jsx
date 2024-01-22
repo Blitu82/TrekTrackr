@@ -5,7 +5,6 @@ import Navbar from './components/Navbar';
 import Map from './pages/Map';
 import Itineraries from './pages/Itineraries';
 import { Routes, Route } from 'react-router-dom';
-// import { fr } from '@mapbox/mapbox-gl-geocoder/lib/exceptions';
 import About from './pages/About';
 import ErrorPage from './pages/ErrorPage';
 
@@ -109,6 +108,16 @@ function App() {
     }
   }
 
+  // Helper function: Define function that returns an array with the ids of all the activities associated with a specific location
+  const getLocationActivities = locationId => {
+    const activities = activity.filter(act => act.itineraryId === locationId);
+    const activitiesId = [];
+    for (const item of activities) {
+      activitiesId.push(item.id);
+    }
+    return activitiesId;
+  };
+
   // 5. Define async function to DELETE location data from the mock API.
   async function deleteLocation(locationId) {
     try {
@@ -118,6 +127,12 @@ function App() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+
+      // Extra: Delete all the activities associated with that location
+      for (const id of getLocationActivities(locationId)) {
+        deleteActivity(id);
+      }
+
       // After deletion, get updated location data from the mock API.
       getGeoJson();
       // console.log('These are the updated locations: ', geoJson);
@@ -125,17 +140,6 @@ function App() {
       console.error('There was a problem deleting the location:', error);
     }
   }
-
-  // TO BE DELETED: Define temporary function to DELETE (filter) location data from the mock API
-  // function handleDelete(id) {
-  //   const updatedGeoJson = {
-  //     type: 'FeatureCollection',
-  //     features: geoJson.features.filter(
-  //       location => location.properties.id !== id
-  //     ),
-  //   };
-  //   setGeoJson(updatedGeoJson);
-  // }
 
   // USE EFFECT
   // We set this effect, so the mock API will run only once, after the initial render.

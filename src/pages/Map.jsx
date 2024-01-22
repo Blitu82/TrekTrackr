@@ -3,22 +3,30 @@ import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
-import { useToast, Box, useColorModeValue } from '@chakra-ui/react';
+import { useToast, Box, Button, useColorModeValue } from '@chakra-ui/react';
 
 // Code based on https://medium.com/@gisjohnecs/part-1-web-mapping-with-mapbox-gl-react-js-7d11b50d86ec
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_KEY;
 
-// function ToastLocationAdded() {
-//   const toast = useToast();
-//   return toast({
-//     title: 'Location added.',
-//     description: "We've added the location for you.",
-//     status: 'success',
-//     duration: 9000,
-//     isClosable: true,
-//   });
-// }
+function ToastExample() {
+  const toast = useToast();
+  return (
+    <Button
+      onClick={() =>
+        toast({
+          title: 'Account created.',
+          description: "We've created your account for you.",
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        })
+      }
+    >
+      Show Toast
+    </Button>
+  );
+}
 
 function Map({ geoJson, getGeoJson, getActivity }) {
   const mapContainer = useRef(null);
@@ -29,7 +37,6 @@ function Map({ geoJson, getGeoJson, getActivity }) {
   const [searched, setSearched] = useState({});
   const [coords, setCoords] = useState([]);
   const [route, setRoute] = useState(null);
-  // const [mapStyle, setMapStyle] = useState('')
 
   // Define constant that will be used to toggle the Map style between light / dark mode.
   const secondaryMapStyle = useColorModeValue('light', 'dark');
@@ -56,11 +63,7 @@ function Map({ geoJson, getGeoJson, getActivity }) {
         types: 'poi',
         placeholder: '    Search Bar',
       }).on('result', function (result) {
-        // setSearched(result.data);
-        // console.log(result);
-
         let search = result;
-
         let searchJson = {
           name: search.result.text_en,
           address: search.result.properties.address,
@@ -220,22 +223,14 @@ function Map({ geoJson, getGeoJson, getActivity }) {
     }
   }, [searched]);
 
-  // Add Navigation to the map (MapBox Directions API)
-  // map.current.addControl(
-  //   new MapboxDirections({
-  //     accessToken: mapboxgl.accessToken,
-  //     unit: 'metric',
-  //     profile: 'mapbox/walking',
-  //   })
-  // );
-
   // WORK IN PROGRESS From: https://www.youtube.com/watch?v=XsGWdXnpU8k
 
   useEffect(() => {
     const getRoute = async () => {
       try {
-        if (!geoJson || !geoJson.features) {
-          console.error('No features found in geoJson');
+        if (geoJson.features.length < 2 || !geoJson) {
+          console.log('No features found in geoJson');
+          setRoute(null);
           return;
         }
 
