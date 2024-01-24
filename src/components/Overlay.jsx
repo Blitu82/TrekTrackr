@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
 import { Flex, Badge, IconButton } from '@chakra-ui/react';
 import {
+  useToast,
   FormControl,
   FormLabel,
   Select,
@@ -33,6 +34,7 @@ function Overlay({
   // STATE VARIABLES:
   // Define state variables to store the activity selected by the user in the form
   const [selectedActivity, setSelectedActivity] = useState('');
+  const toast = useToast();
 
   // Define function that returns activity selected by the user and sets that activity to state.
   const handleActivityChange = event => {

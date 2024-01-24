@@ -71,7 +71,9 @@ function Itineraries({
                     colorScheme="yellow"
                     icon={<DeleteIcon />}
                     size="sm"
-                    onClick={() => deleteLocation(location.properties.id)}
+                    onClick={() => {
+                      deleteLocation(location.properties.id);
+                    }}
                   />
                 </Stack>
               </Box>

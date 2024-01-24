@@ -1,6 +1,6 @@
 // import './App.css';
 import { useState, useEffect } from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Flex, useToast } from '@chakra-ui/react';
 import Navbar from './components/Navbar';
 import Map from './pages/Map';
 import Itineraries from './pages/Itineraries';
@@ -15,6 +15,7 @@ function App() {
   // Define state variables to store Locations and Activities
   const [geoJson, setGeoJson] = useState(null);
   const [activity, setActivity] = useState(null);
+  const toast = useToast();
 
   // ASYNC FUNCTIONS:
   // 1. Define async function to GET location data from mock API
@@ -100,6 +101,7 @@ function App() {
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
+
       // After deletion, get updated activity data from the mock API.
       getActivity();
       // console.log('These are the updated activities: ', activity);
@@ -132,6 +134,14 @@ function App() {
       for (const id of getLocationActivities(locationId)) {
         deleteActivity(id);
       }
+
+      //Display a Chakra UI confirmation toast. Based on: https://chakra-ui.com/docs/components/toast/usage#promise-based-toast
+      toast({
+        title: 'Location deleted',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
 
       // After deletion, get updated location data from the mock API.
       getGeoJson();

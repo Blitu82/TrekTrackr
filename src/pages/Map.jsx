@@ -9,25 +9,6 @@ import { useToast, Box, Button, useColorModeValue } from '@chakra-ui/react';
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_KEY;
 
-function ToastExample() {
-  const toast = useToast();
-  return (
-    <Button
-      onClick={() =>
-        toast({
-          title: 'Account created.',
-          description: "We've created your account for you.",
-          status: 'success',
-          duration: 9000,
-          isClosable: true,
-        })
-      }
-    >
-      Show Toast
-    </Button>
-  );
-}
-
 function Map({ geoJson, getGeoJson, getActivity }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -37,6 +18,7 @@ function Map({ geoJson, getGeoJson, getActivity }) {
   const [searched, setSearched] = useState({});
   const [coords, setCoords] = useState([]);
   const [route, setRoute] = useState(null);
+  const toast = useToast();
 
   // Define constant that will be used to toggle the Map style between light / dark mode.
   const secondaryMapStyle = useColorModeValue('light', 'dark');
@@ -206,6 +188,15 @@ function Map({ geoJson, getGeoJson, getActivity }) {
             },
             body: JSON.stringify(searched),
           });
+
+          //Display a Chakra UI confirmation toast. Based on: https://chakra-ui.com/docs/components/toast/usage#promise-based-toast
+          toast({
+            title: 'Location added',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+          });
+
           if (!response.ok) {
             throw new Error('Failed to add itinerary');
           }
