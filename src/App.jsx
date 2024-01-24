@@ -166,7 +166,11 @@ function App() {
         <Route
           path="/"
           element={
-            <Flex direction="row" height="100vh">
+            <Flex
+              direction="row"
+              h="100vh"
+              direction={{ base: 'column-reverse', md: 'row' }}
+            >
               <Itineraries
                 geoJson={geoJson}
                 activity={activity}
