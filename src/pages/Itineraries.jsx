@@ -27,9 +27,9 @@ function Itineraries({
   };
 
   return (
-    <Box w="100%" p="10px">
+    <Box p="10px" h="100%">
       {geoJson && (
-        <Stack spacing="10px">
+        <Stack spacing="15px">
           {geoJson.features.map(location => (
             <Stack
               key={location.properties.id}
@@ -52,7 +52,7 @@ function Itineraries({
                   <Stack
                     direction={{ base: 'column-reverse', md: 'row' }}
                     pt="5px"
-                    // maxW="300px"
+                    maxW="300px"
                     minW={0}
                     overflowX="auto"
                   >

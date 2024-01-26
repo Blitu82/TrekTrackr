@@ -1,10 +1,10 @@
 // import './App.css';
 import { useState, useEffect } from 'react';
 import { Flex, useToast } from '@chakra-ui/react';
-import Navbar from './components/Navbar';
-import Map from './pages/Map';
-import Itineraries from './pages/Itineraries';
 import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Itineraries from './pages/Itineraries';
+import Map from './pages/Map';
 import About from './pages/About';
 import ErrorPage from './pages/ErrorPage';
 
@@ -15,6 +15,8 @@ function App() {
   // Define state variables to store Locations and Activities
   const [geoJson, setGeoJson] = useState(null);
   const [activity, setActivity] = useState(null);
+
+  // https://chakra-ui.com/docs/components/toast
   const toast = useToast();
 
   // ASYNC FUNCTIONS:
@@ -27,7 +29,7 @@ function App() {
       }
       const jsonData = await response.json();
 
-      // transform data into GeoJSON format
+      // Transform data into GeoJSON format
       const features = jsonData.map(item => ({
         type: 'Feature',
         geometry: {
@@ -40,13 +42,12 @@ function App() {
           address: item.address,
         },
       }));
-      // Create a GeoJSON FeatureCollection from the features
+      // Create a GeoJSON FeatureCollection
       const featureCollection = {
         type: 'FeatureCollection',
         features: features,
       };
-      // console.log(featureCollection);
-      // Set the created GeoJSON to state
+      // Set the created GeoJSON to the state variable geoJson
       setGeoJson(featureCollection);
     } catch (error) {
       console.error('There was a problem fetching the location data:', error);
@@ -61,7 +62,6 @@ function App() {
         throw new Error('Network response was not ok');
       }
       const activityData = await response.json();
-      // console.log(activityData);
       // Set the activity data to state
       setActivity(activityData);
     } catch (error) {
@@ -104,13 +104,13 @@ function App() {
 
       // After deletion, get updated activity data from the mock API.
       getActivity();
-      // console.log('These are the updated activities: ', activity);
     } catch (error) {
       console.error('There was a problem deleting the activity:', error);
     }
   }
 
-  // Helper function: Define function that returns an array with the ids of all the activities associated with a specific location
+  // 5. Define async function to DELETE location data from the mock API.
+  // First define a function that returns an array with the ids of all the activities associated with a specific location.
   const getLocationActivities = locationId => {
     const activities = activity.filter(act => act.itineraryId === locationId);
     const activitiesId = [];
@@ -120,7 +120,6 @@ function App() {
     return activitiesId;
   };
 
-  // 5. Define async function to DELETE location data from the mock API.
   async function deleteLocation(locationId) {
     try {
       const response = await fetch(`${API_URL}/itinerary/${locationId}`, {
@@ -130,7 +129,7 @@ function App() {
         throw new Error('Network response was not ok');
       }
 
-      // Extra: Delete all the activities associated with that location
+      // Delete all the activities associated with that location.
       for (const id of getLocationActivities(locationId)) {
         deleteActivity(id);
       }
@@ -145,7 +144,6 @@ function App() {
 
       // After deletion, get updated location data from the mock API.
       getGeoJson();
-      // console.log('These are the updated locations: ', geoJson);
     } catch (error) {
       console.error('There was a problem deleting the location:', error);
     }
@@ -161,16 +159,11 @@ function App() {
   return (
     <>
       <Navbar />
-
       <Routes>
         <Route
           path="/"
           element={
-            <Flex
-              direction="row"
-              h="100vh"
-              direction={{ base: 'column-reverse', md: 'row' }}
-            >
+            <Flex h="100vh" direction={{ base: 'column-reverse', md: 'row' }}>
               <Itineraries
                 geoJson={geoJson}
                 activity={activity}

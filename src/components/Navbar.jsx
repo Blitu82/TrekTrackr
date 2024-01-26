@@ -1,8 +1,14 @@
-import { Flex, Heading, Switch } from '@chakra-ui/react';
-import { Image, Stack } from '@chakra-ui/react';
-import imgUrl from '../assets/logo_example.png';
-import { Button, useColorMode } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
+import imgUrl from '../assets/logo_example.png';
+import {
+  Flex,
+  Heading,
+  Switch,
+  Image,
+  Stack,
+  Button,
+  useColorMode,
+} from '@chakra-ui/react';
 
 function Navbar() {
   const { toggleColorMode } = useColorMode();
@@ -15,7 +21,7 @@ function Navbar() {
       bg="#222"
       p={[0, 3, 15]}
     >
-      <Stack direction="row" pr="10px">
+      <Stack direction="row" git="10px">
         <NavLink to="/">
           <Image
             boxSize="40px"
