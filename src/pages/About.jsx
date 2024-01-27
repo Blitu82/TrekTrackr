@@ -18,13 +18,20 @@ import { SiChakraui, SiMapbox } from 'react-icons/si';
 
 function About() {
   const bgColor = useColorModeValue('gray.100', 'whiteAlpha.50');
+  const dividerColor = useColorModeValue('black.100', 'white');
 
   return (
     <Box m={3}>
-      <Stack bg={bgColor} borderWidth="1px" borderRadius="lg" p="5px">
+      <Stack
+        bg={bgColor}
+        borderWidth="1px"
+        borderRadius="lg"
+        p="20px"
+        h=" 83vh"
+      >
         <Flex
           flex="1"
-          flexDirection={{ base: 'column', md: 'row' }}
+          flexDirection="column-reverse"
           gap="4"
           alignItems="center"
           justifyContent="space-between"
@@ -32,23 +39,17 @@ function About() {
         >
           <Stack>
             <Text as="b" fontSize="3xl" p="5px">
-              Project Name
+              TrekTrackr
             </Text>
-            <Divider />
-            <Text fontSize="l" p="5px">
-              TREKTRACKR (Trip Location Planner)
-            </Text>
-            <Text as="b" fontSize="2xl" p="5px" pt="30px">
-              Description
-            </Text>
-            <Divider />
-            <Text fontSize="l" p="5px">
+            <Divider borderWidth="2px" borderColor={dividerColor} />
+
+            <Text fontSize="2xl" p="5px" pt="30px">
               Location planner app that allows users to manage itineraries when
               visiting new cities.
             </Text>
           </Stack>
           <Stack>
-            <Flex flexDirection="column">
+            <Flex flexDirection="row" gap="10" justify="center">
               <Card maxWidth="600px" p="10px">
                 <Flex spacing="4">
                   <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
@@ -106,7 +107,7 @@ function About() {
           flexDirection={{ base: 'column', md: 'row' }}
           alignItems="stretch"
           justifyContent="space-evenly"
-          pb="120px"
+          h="100%"
         >
           <Stack>
             <Text as="b" fontSize="2xl" p="5px" pt="30px" textAlign="center">
