@@ -1,12 +1,12 @@
 # Project Name
 
-TREKTRACKR (Trip Location Planner)
+![TREKTRACKR Logo](public\logo_example.png) TREKTRACKR
 
 <br>
 
 ## Description
 
-Location planner App that allows users to manage itineraries when visiting new cities.
+Travel app that allows users to manage itineraries when visiting new cities.
 <br>
 
 ## Data
@@ -43,15 +43,9 @@ https://docs.mapbox.com/
 
 https://docs.mapbox.com/api/navigation/directions/
 
-https://developers.google.com/maps/
-
-https://developer.here.com/
-
 <br>
 
 ## Packages
-
-https://leafletjs.com/
 
 <br>
 

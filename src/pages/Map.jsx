@@ -22,8 +22,10 @@ function Map({ geoJson, getGeoJson, getActivity }) {
   const [searched, setSearched] = useState({});
   // State variable that will store the route between locations
   const [route, setRoute] = useState(null);
-  // https://chakra-ui.com/docs/components/toast
+  // Define variable to use Chakra UI confirmation toast when adding locations (https://chakra-ui.com/docs/components/toast)https://chakra-ui.com/docs/components/toast
   const toast = useToast();
+
+  console.log(searched);
 
   // ASYNC FUNCTIONS:
   // 1. Define async function to POST new location data to the mock API
@@ -37,7 +39,7 @@ function Map({ geoJson, getGeoJson, getActivity }) {
         body: JSON.stringify(searched),
       });
 
-      //Display a Chakra UI confirmation toast. Based on: https://chakra-ui.com/docs/components/toast/usage#promise-based-toast
+      //Display a Chakra UI confirmation toast.
       toast({
         title: 'Location added',
         status: 'success',
