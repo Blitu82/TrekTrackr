@@ -109,7 +109,7 @@ function Map({ geoJson, getGeoJson, getActivity }) {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: mapStyle,
-      type: 'poi',
+      // type: 'poi',
       center: [lng, lat],
       zoom: zoom,
     });
@@ -122,8 +122,9 @@ function Map({ geoJson, getGeoJson, getActivity }) {
         placeholder: '    Search Bar',
       }).on('result', function (result) {
         let search = result;
+        console.log(search);
         let searchJson = {
-          name: search.result.text_en,
+          name: search.result.text,
           address: search.result.properties.address,
           latitude: search.result.geometry.coordinates[1],
           longitude: search.result.geometry.coordinates[0],
