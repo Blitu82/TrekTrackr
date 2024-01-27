@@ -1,6 +1,5 @@
-# Project Name
+# TREKTRACKR
 
-TREKTRACKR
 <br>
 ![TREKTRACKR Logo](https://github.com/Blitu82/TrekTrackr/blob/main/public/trektracker_app.png)
 <br>
