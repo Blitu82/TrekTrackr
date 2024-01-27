@@ -1,13 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
-import { Flex, Badge, IconButton } from '@chakra-ui/react';
-import {
-  FormControl,
-  FormLabel,
-  Select,
-  FormErrorMessage,
-  FormHelperText,
-} from '@chakra-ui/react';
+import { Badge, IconButton } from '@chakra-ui/react';
+import { FormControl, FormLabel, Select } from '@chakra-ui/react';
 import {
   Modal,
   ModalOverlay,
@@ -19,8 +13,6 @@ import {
   useDisclosure,
   Button,
 } from '@chakra-ui/react';
-
-const API_URL = 'https://json-server-backend-trek.adaptable.app';
 
 // From https://chakra-ui.com/docs/components/modal/usage
 function Overlay({

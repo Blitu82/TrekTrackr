@@ -27,9 +27,9 @@ function Itineraries({
   };
 
   return (
-    <Box w="500px" p="10px">
+    <Box p="10px" h="100%">
       {geoJson && (
-        <Stack spacing="10px">
+        <Stack spacing="15px">
           {geoJson.features.map(location => (
             <Stack
               key={location.properties.id}
@@ -41,13 +41,21 @@ function Itineraries({
               spacing="20px"
               shadow="md"
               alignItems="center"
+              minW={0}
+              overflowX="auto"
             >
               <Box flex="1">
                 <Text as="strong" textAlign="left">
                   {location.properties.name}
                 </Text>
                 {activity && (
-                  <Stack direction="row" pt="5px" maxW="300px" overflowX="auto">
+                  <Stack
+                    direction={{ base: 'column-reverse', md: 'row' }}
+                    pt="5px"
+                    maxW="300px"
+                    minW={0}
+                    overflowX="auto"
+                  >
                     {getLocationActivities(location.properties.id).map(act => (
                       <Badge key={act.id} variant="solid" colorScheme="green">
                         {`#${act.title}`}
@@ -71,7 +79,9 @@ function Itineraries({
                     colorScheme="yellow"
                     icon={<DeleteIcon />}
                     size="sm"
-                    onClick={() => deleteLocation(location.properties.id)}
+                    onClick={() => {
+                      deleteLocation(location.properties.id);
+                    }}
                   />
                 </Stack>
               </Box>
