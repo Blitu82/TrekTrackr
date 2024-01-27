@@ -29,8 +29,6 @@ function Overlay({
   // Define function that returns activity selected by the user and sets that activity to state.
   const handleActivityChange = event => {
     setSelectedActivity(event.target.value);
-    // console.log('Location Id:', location.properties.id);
-    // console.log('Add Activity:', event.target.value);
   };
 
   const handleAddActivity = () => {
@@ -92,7 +90,6 @@ function Overlay({
                 <IconButton
                   aria-label="Close Icon"
                   icon={<DeleteIcon />}
-                  // colorScheme="yellow"
                   size="sm"
                   m="5px"
                   onClick={() => deleteActivity(act.id)}

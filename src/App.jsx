@@ -1,7 +1,6 @@
-// import './App.css';
 import { useState, useEffect } from 'react';
-import { Flex, useToast } from '@chakra-ui/react';
 import { Routes, Route } from 'react-router-dom';
+import { Flex, useToast } from '@chakra-ui/react';
 import Navbar from './components/Navbar';
 import Itineraries from './pages/Itineraries';
 import Map from './pages/Map';
@@ -12,15 +11,15 @@ const API_URL = 'https://json-server-backend-trek.adaptable.app';
 
 function App() {
   // STATE VARIABLES:
-  // Define state variables to store Locations and Activities
+  // Define state variables to store Locations and Activities.
   const [geoJson, setGeoJson] = useState(null);
   const [activity, setActivity] = useState(null);
 
-  // https://chakra-ui.com/docs/components/toast
+  // Define variable to use Chakra UI confirmation toast when deleting locations (https://chakra-ui.com/docs/components/toast)
   const toast = useToast();
 
   // ASYNC FUNCTIONS:
-  // 1. Define async function to GET location data from mock API
+  // 1. Define async function to GET location data from mock API.
   async function getGeoJson() {
     try {
       const response = await fetch(`${API_URL}/itinerary`);
@@ -134,7 +133,7 @@ function App() {
         deleteActivity(id);
       }
 
-      //Display a Chakra UI confirmation toast. Based on: https://chakra-ui.com/docs/components/toast/usage#promise-based-toast
+      //Display a Chakra UI confirmation toast (https://chakra-ui.com/docs/components/toast)
       toast({
         title: 'Location deleted',
         status: 'success',

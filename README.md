@@ -1,12 +1,11 @@
-# Project Name
+# TrekTrackr
 
-TREKTRACKR (Trip Location Planner)
-
+![TREKTRACKR Logo](https://github.com/Blitu82/TrekTrackr/blob/main/public/trektracker_app.png)
 <br>
 
 ## Description
 
-Location planner App that allows users to manage itineraries when visiting new cities.
+Travel app that allows users to manage itineraries when visiting new cities.
 <br>
 
 ## Data
@@ -14,14 +13,22 @@ Location planner App that allows users to manage itineraries when visiting new c
 Itinerary
 
 ```json
+
 {
-  "location_name": String,
-  "latitude": Number,
-  "longitude": Number,
-  "address": String,
-  "description": String,
-  "activities": Array,
+  id: 1,
+  name: "Lisbon Castle",
+  address: "R. Costa do Castelo",
+  latitude: 38.713909,
+  longitude: -9.1333476
+},
+{
+  id: 2,
+  name: "Santa Justa Lift",
+  address: "Lg. do Carmo / R. do Ouro",
+  latitude: 38.7123,
+  longitude: -9.1397
 }
+
 
 ```
 
@@ -29,45 +36,57 @@ Activities
 
 ```json
 {
-  "activityId": Number,
-  "activity_name": String,
+  id: 1,
+  itineraryId: 1,
+  title: "cultural"
+},
+{
+  id: 2,
+  itineraryId: 2,
+  title: "adventure"
+},
+{
+  id: 3,
+  itineraryId: 2,
+  title: "culinary"
+},
+{
+  id: 4,
+  itineraryId: 1,
+  title: "historical tour"
+},
+{
+  id: 5,
+  itineraryId: 2,
+  title: "photography"
 }
 
 ```
 
 <br>
 
-## API's
+## APIs
 
-https://docs.mapbox.com/
-
-https://docs.mapbox.com/api/navigation/directions/
-
-https://developers.google.com/maps/
-
-https://developer.here.com/
+[MapBox](https://www.mapbox.com/)
 
 <br>
 
 ## Packages
 
-https://leafletjs.com/
+[Chakra UI](https://chakra-ui.com/)
 
 <br>
 
-## Links
+## GitHub
 
-### Git
+[Frontend](https://github.com/Blitu82/TrekTrackr)
 
-The url to your repository and to your deployed project
+[Backend](https://github.com/Blitu82/json-server-backend)
 
-Frontend: [Repository Link](https://github.com/Blitu82/TrekTrackr)
-Backend: [Repository Link](https://github.com/Blitu82/json-server-backend)
+[Deployed version](https://trektrackr.netlify.app/)
 
-[Deploy Link]()
+## Contributors
 
-### Contributors
+Estanislau Mendes - [GitHub](https://github.com/estanislaumendes) - [LinkedIn](https://www.linkedin.com/in/estanislau-mendes)
 
-Estanislau Mendes - [`<github-username>`](https://github.com/estanislaumendes) - [`<linkedin-profile-link>`](https://www.linkedin.com/in/estanislau-mendes)
-
-Pablo Garcia Garcia - [`<github-username>`](https://github.com/Blitu82) - [`<linkedin-profile-link>`](https://www.linkedin.com/in/garpablo/)
+Pablo García García - [GitHub](https://github.com/Blitu82) - [LinkedIn](https://www.linkedin.com/in/garpablo/)
