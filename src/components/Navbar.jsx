@@ -22,12 +22,11 @@ function Navbar() {
       bg="#222"
       p={[0, 3, 15]}
     >
-      <HStack direction="row" git="10px">
+      <HStack direction="row" p="10px">
         <NavLink to="/">
           <Image
             boxSize={['25px', '30px', '40px']}
             src={imgUrl}
-            // size={['5px', 'md', '15px']}
             alt="logo"
           ></Image>
         </NavLink>
