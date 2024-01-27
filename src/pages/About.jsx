@@ -24,7 +24,7 @@ function About() {
       <Stack bg={bgColor} borderWidth="1px" borderRadius="lg" p="5px">
         <Flex
           flex="1"
-          flexDirection="row"
+          flexDirection={{ base: 'column', md: 'row' }}
           gap="4"
           alignItems="center"
           justifyContent="space-between"
@@ -48,60 +48,62 @@ function About() {
             </Text>
           </Stack>
           <Stack>
-            <Card w="600px" p="10px">
-              <Flex spacing="4">
-                <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-                  <Avatar
-                    size="2xl"
-                    name="Estanislau Mendes"
-                    src="https://media.licdn.com/dms/image/C5603AQHS8dOb3WusBg/profile-displayphoto-shrink_800_800/0/1635409428761?e=2147483647&v=beta&t=nZSJmNlDr-VHnpliq7NPRHuyhZ-wbWYzVQEKkm7qWaw"
-                  />
+            <Flex flexDirection="column">
+              <Card maxWidth="600px" p="10px">
+                <Flex spacing="4">
+                  <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
+                    <Avatar
+                      size="2xl"
+                      name="Estanislau Mendes"
+                      src="https://media.licdn.com/dms/image/C5603AQHS8dOb3WusBg/profile-displayphoto-shrink_800_800/0/1635409428761?e=2147483647&v=beta&t=nZSJmNlDr-VHnpliq7NPRHuyhZ-wbWYzVQEKkm7qWaw"
+                    />
 
-                  <Box>
-                    <Heading size="lg">Estanislau Mendes</Heading>
-                    <Text>Web Developer</Text>
-                  </Box>
-                  <Flex flex="1" justify="flex-end" gap="4" pr="5px">
-                    <Link href="https://www.linkedin.com/in/estanislau-mendes">
-                      <FaLinkedin size="50px" />
-                    </Link>
-                    <Link href="https://github.com/estanislaumendes">
-                      <FaGithub size="50px" />
-                    </Link>
+                    <Box>
+                      <Heading size="lg">Estanislau Mendes</Heading>
+                      <Text>Web Developer</Text>
+                    </Box>
+                    <Flex flex="1" justify="flex-end" gap="4" pr="5px">
+                      <Link href="https://www.linkedin.com/in/estanislau-mendes">
+                        <FaLinkedin size="50px" />
+                      </Link>
+                      <Link href="https://github.com/estanislaumendes">
+                        <FaGithub size="50px" />
+                      </Link>
+                    </Flex>
                   </Flex>
                 </Flex>
-              </Flex>
-            </Card>
-            <Card w="600px" p="10px">
-              <Flex spacing="4">
-                <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-                  <Avatar
-                    size="2xl"
-                    name="Pablo Garcia"
-                    src="https://media.licdn.com/dms/image/D4D03AQFjj8ruYe8YUA/profile-displayphoto-shrink_400_400/0/1683530598602?e=1710979200&v=beta&t=inYr-5y-tYRm0JbZMuIMEmf4VxSgXEqILU9hub7ArSU"
-                  />
+              </Card>
+              <Card maxWidth="600px" p="10px">
+                <Flex spacing="4">
+                  <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
+                    <Avatar
+                      size="2xl"
+                      name="Pablo Garcia"
+                      src="https://media.licdn.com/dms/image/D4D03AQFjj8ruYe8YUA/profile-displayphoto-shrink_400_400/0/1683530598602?e=1710979200&v=beta&t=inYr-5y-tYRm0JbZMuIMEmf4VxSgXEqILU9hub7ArSU"
+                    />
 
-                  <Box>
-                    <Heading size="lg">Pablo Garcia</Heading>
-                    <Text>Web Developer</Text>
-                  </Box>
-                  <Flex flex="1" justify="flex-end" gap="4" pr="5px">
-                    <Link href="https://www.linkedin.com/in/garpablo/">
-                      <FaLinkedin size="50px" />
-                    </Link>
-                    <Link href="https://github.com/Blitu82">
-                      <FaGithub size="50px" />
-                    </Link>
+                    <Box>
+                      <Heading size="lg">Pablo Garcia</Heading>
+                      <Text>Web Developer</Text>
+                    </Box>
+                    <Flex flex="1" justify="flex-end" gap="4" pr="5px">
+                      <Link href="https://www.linkedin.com/in/garpablo/">
+                        <FaLinkedin size="50px" />
+                      </Link>
+                      <Link href="https://github.com/Blitu82">
+                        <FaGithub size="50px" />
+                      </Link>
+                    </Flex>
                   </Flex>
                 </Flex>
-              </Flex>
-            </Card>
+              </Card>
+            </Flex>
           </Stack>
         </Flex>
 
         <Flex
           flex="1"
-          flexDirection="row"
+          flexDirection={{ base: 'column', md: 'row' }}
           alignItems="stretch"
           justifyContent="space-evenly"
           pb="120px"
