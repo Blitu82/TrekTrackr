@@ -1,6 +1,6 @@
 # Project Name
 
-![TREKTRACKR Logo]('public\logo_example.png') TREKTRACKR
+![TREKTRACKR Logo](C:\Users\garpa\OneDrive\Documents\GitHub\TrekTrackr\public\logo_example.png) TREKTRACKR
 
 <br>
 
@@ -83,7 +83,8 @@ https://chakra-ui.com/
 ### Git
 
 [Frontend](https://github.com/Blitu82/TrekTrackr)
-[Backend](https://github.com/Blitu82/json-server-backend)
+
+[Mock API ](https://github.com/Blitu82/json-server-backend)
 
 [Netlify Deployed Version](https://trektrackr.netlify.app/)
 
