@@ -21,14 +21,8 @@ function About() {
   const dividerColor = useColorModeValue('black.100', 'white');
 
   return (
-    <Box m={3}>
-      <Stack
-        bg={bgColor}
-        borderWidth="1px"
-        borderRadius="lg"
-        p="20px"
-        h=" 83vh"
-      >
+    <Box m={3} w="auto">
+      <Stack bg={bgColor} borderWidth="1px" borderRadius="lg" p="20px" h="100%">
         <Flex
           flex="1"
           flexDirection="column-reverse"
@@ -113,7 +107,7 @@ function About() {
             <Text as="b" fontSize="2xl" p="5px" pt="30px" textAlign="center">
               API'S
             </Text>
-            <Divider />
+            <Divider bg={bgColor} borderWidth="1.5px" />
             <HStack direction="row" spacing={1} justify="center">
               <SiMapbox size="30px" />
               <Link
@@ -130,7 +124,7 @@ function About() {
             <Text as="b" fontSize="2xl" p="5px" pt="30px" textAlign="center">
               External Library
             </Text>
-            <Divider />
+            <Divider bg={bgColor} borderWidth="1.5px" />
             <HStack direction="row" spacing={1} justify="center">
               <SiChakraui size="30px" />
               <Link
@@ -147,7 +141,7 @@ function About() {
             <Text as="b" fontSize="2xl" p="5px" pt="30px" textAlign="center">
               Github
             </Text>
-            <Divider />
+            <Divider bg={bgColor} borderWidth="1.5px" />
             <HStack direction="row" spacing={1} justify="center">
               <FaGithub size="30px" />
               <Link
