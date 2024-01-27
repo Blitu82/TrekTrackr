@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom';
 import imgUrl from '../assets/logo_example.png';
 import {
   Flex,
+  HStack,
   Heading,
   Switch,
   Image,
@@ -21,12 +22,12 @@ function Navbar() {
       bg="#222"
       p={[0, 3, 15]}
     >
-      <Stack direction="row" git="10px">
+      <HStack direction="row" git="10px">
         <NavLink to="/">
           <Image
-            boxSize="40px"
+            boxSize={['25px', '30px', '40px']}
             src={imgUrl}
-            size={['sm', 'md', 'lg']}
+            // size={['5px', 'md', '15px']}
             alt="logo"
           ></Image>
         </NavLink>
@@ -35,7 +36,7 @@ function Navbar() {
             TrekTrackr
           </Heading>
         </NavLink>
-      </Stack>
+      </HStack>
 
       <Stack direction="row" align="center" spacing="20px">
         <Button colorScheme="yellow" size={['sm', 'md', 'lg']}>
