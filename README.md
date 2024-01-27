@@ -1,6 +1,6 @@
 # Project Name
 
-![TREKTRACKR Logo](public\logo_example.png) TREKTRACKR
+![TREKTRACKR Logo]('public\logo_example.png') TREKTRACKR
 
 <br>
 
@@ -16,18 +16,18 @@ Itinerary
 ```json
 
 {
-id: 1,
-name: "Lisbon Castle",
-address: "R. Costa do Castelo",
-latitude: 38.713909,
-longitude: -9.1333476
+  id: 1,
+  name: "Lisbon Castle",
+  address: "R. Costa do Castelo",
+  latitude: 38.713909,
+  longitude: -9.1333476
 },
 {
-id: 2,
-name: "Santa Justa Lift",
-address: "Lg. do Carmo / R. do Ouro",
-latitude: 38.7123,
-longitude: -9.1397
+  id: 2,
+  name: "Santa Justa Lift",
+  address: "Lg. do Carmo / R. do Ouro",
+  latitude: 38.7123,
+  longitude: -9.1397
 }
 
 
@@ -37,29 +37,29 @@ Activities
 
 ```json
 {
-id: 1,
-itineraryId: 1,
-title: "cultural"
+  id: 1,
+  itineraryId: 1,
+  title: "cultural"
 },
 {
-id: 2,
-itineraryId: 2,
-title: "adventure"
+  id: 2,
+  itineraryId: 2,
+  title: "adventure"
 },
 {
-id: 3,
-itineraryId: 2,
-title: "culinary"
+  id: 3,
+  itineraryId: 2,
+  title: "culinary"
 },
 {
-id: 4,
-itineraryId: 1,
-title: "historical tour"
+  id: 4,
+  itineraryId: 1,
+  title: "historical tour"
 },
 {
-id: 5,
-itineraryId: 2,
-title: "photography"
+  id: 5,
+  itineraryId: 2,
+  title: "photography"
 }
 
 ```
@@ -82,13 +82,13 @@ https://chakra-ui.com/
 
 ### Git
 
-Frontend: [Repository Link](https://github.com/Blitu82/TrekTrackr)
-Backend: [Repository Link](https://github.com/Blitu82/json-server-backend)
+[Frontend](https://github.com/Blitu82/TrekTrackr)
+[Backend](https://github.com/Blitu82/json-server-backend)
 
-[Deploy Link]()
+[Netlify Deployed Version](https://trektrackr.netlify.app/)
 
 ### Contributors
 
-Estanislau Mendes - [`<github-username>`](https://github.com/estanislaumendes) - [`<linkedin-profile-link>`](https://www.linkedin.com/in/estanislau-mendes)
+Estanislau Mendes - [GitHub](https://github.com/estanislaumendes) - [LinkedIn](https://www.linkedin.com/in/estanislau-mendes)
 
-Pablo Garcia Garcia - [`<github-username>`](https://github.com/Blitu82) - [`<linkedin-profile-link>`](https://www.linkedin.com/in/garpablo/)
+Pablo Garcia Garcia - [GitHub](https://github.com/Blitu82) - [LinkedIn](https://www.linkedin.com/in/garpablo/)
