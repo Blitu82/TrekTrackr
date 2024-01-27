@@ -14,14 +14,22 @@ Travel app that allows users to manage itineraries when visiting new cities.
 Itinerary
 
 ```json
+
 {
-  "location_name": String,
-  "latitude": Number,
-  "longitude": Number,
-  "address": String,
-  "description": String,
-  "activities": Array,
+id: 1,
+name: "Lisbon Castle",
+address: "R. Costa do Castelo",
+latitude: 38.713909,
+longitude: -9.1333476
+},
+{
+id: 2,
+name: "Santa Justa Lift",
+address: "Lg. do Carmo / R. do Ouro",
+latitude: 38.7123,
+longitude: -9.1397
 }
+
 
 ```
 
@@ -29,8 +37,29 @@ Activities
 
 ```json
 {
-  "activityId": Number,
-  "activity_name": String,
+id: 1,
+itineraryId: 1,
+title: "cultural"
+},
+{
+id: 2,
+itineraryId: 2,
+title: "adventure"
+},
+{
+id: 3,
+itineraryId: 2,
+title: "culinary"
+},
+{
+id: 4,
+itineraryId: 1,
+title: "historical tour"
+},
+{
+id: 5,
+itineraryId: 2,
+title: "photography"
 }
 
 ```
@@ -41,19 +70,17 @@ Activities
 
 https://docs.mapbox.com/
 
-https://docs.mapbox.com/api/navigation/directions/
-
 <br>
 
 ## Packages
+
+https://chakra-ui.com/
 
 <br>
 
 ## Links
 
 ### Git
-
-The url to your repository and to your deployed project
 
 Frontend: [Repository Link](https://github.com/Blitu82/TrekTrackr)
 Backend: [Repository Link](https://github.com/Blitu82/json-server-backend)
