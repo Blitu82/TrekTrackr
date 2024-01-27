@@ -25,8 +25,6 @@ function Map({ geoJson, getGeoJson, getActivity }) {
   // Define variable to use Chakra UI confirmation toast when adding locations (https://chakra-ui.com/docs/components/toast)https://chakra-ui.com/docs/components/toast
   const toast = useToast();
 
-  console.log(searched);
-
   // ASYNC FUNCTIONS:
   // 1. Define async function to POST new location data to the mock API
   async function postLocation(searched) {
@@ -109,6 +107,7 @@ function Map({ geoJson, getGeoJson, getActivity }) {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: mapStyle,
+      type: 'poi',
       center: [lng, lat],
       zoom: zoom,
     });
