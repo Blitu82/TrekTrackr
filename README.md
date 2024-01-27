@@ -1,7 +1,6 @@
 # Project Name
 
-![TREKTRACKR Logo](C:\Users\garpa\OneDrive\Documents\GitHub\TrekTrackr\public\logo_example.png) TREKTRACKR
-
+![TREKTRACKR Logo](https://github.com/Blitu82/TrekTrackr/blob/main/public/logo_example.png) TREKTRACKR
 <br>
 
 ## Description
