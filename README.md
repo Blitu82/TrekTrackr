@@ -1,4 +1,4 @@
-# TREKTRACKR
+# TrekTrackr
 
 ![TREKTRACKR Logo](https://github.com/Blitu82/TrekTrackr/blob/main/public/trektracker_app.png)
 <br>
@@ -65,15 +65,15 @@ Activities
 
 <br>
 
-## API's
+## APIs
 
-https://docs.mapbox.com/
+[MapBox](https://www.mapbox.com/)
 
 <br>
 
 ## Packages
 
-https://chakra-ui.com/
+[Chakra UI](https://chakra-ui.com/)
 
 <br>
 
