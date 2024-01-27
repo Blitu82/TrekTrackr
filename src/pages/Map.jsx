@@ -107,7 +107,7 @@ function Map({ geoJson, getGeoJson, getActivity }) {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: mapStyle,
-      type: 'poi',
+      // type: 'poi',
       center: [lng, lat],
       zoom: zoom,
     });
