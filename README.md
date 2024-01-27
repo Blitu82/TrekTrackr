@@ -77,18 +77,16 @@ Activities
 
 <br>
 
-## Links
-
-### Git
+## GitHub
 
 [Frontend](https://github.com/Blitu82/TrekTrackr)
 
-[Mock API ](https://github.com/Blitu82/json-server-backend)
+[Backend](https://github.com/Blitu82/json-server-backend)
 
-[Netlify Deployed Version](https://trektrackr.netlify.app/)
+[Deployed version](https://trektrackr.netlify.app/)
 
-### Contributors
+## Contributors
 
 Estanislau Mendes - [GitHub](https://github.com/estanislaumendes) - [LinkedIn](https://www.linkedin.com/in/estanislau-mendes)
 
-Pablo Garcia Garcia - [GitHub](https://github.com/Blitu82) - [LinkedIn](https://www.linkedin.com/in/garpablo/)
+Pablo García García - [GitHub](https://github.com/Blitu82) - [LinkedIn](https://www.linkedin.com/in/garpablo/)
